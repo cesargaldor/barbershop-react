@@ -93,12 +93,12 @@ export default function Home() {
   return (
     <div className='w-full pb-3'>
       <div className='flex flex-col items-center justify-center'>
-        <h1 className='text-2xl font-bold mb-4'>
+        <h1 className='text-2xl font-bold mb-4 text-center'>
           Seleccione un día para su cita
         </h1>
         <input
           defaultValue={date.toISOString().substring(0, 10)}
-          className='p-1 border-none w-44 outline-none bg-gray-100 rounded-lg'
+          className='p-2 border-none w-52 outline-none bg-gray-100 rounded-lg'
           type='date'
           onChange={(e) => {
             if (e.target.value !== '') {
@@ -108,7 +108,7 @@ export default function Home() {
         />
 
         {isOpeningDay ? (
-          <div className='mt-12 grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8'>
+          <div className='mt-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 pb-6'>
             {renderHours.map((d, i) => {
               return (
                 <HoursCard

@@ -1,12 +1,15 @@
 import Navbar from '../components/Navbar';
 import '../styles/globals.css';
+import { AuthProvider } from '../context/AuthContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div className='px-5'>
-      <Navbar />
-      <Component {...pageProps} />
-    </div>
+    <AuthProvider>
+      <div>
+        <Navbar />
+        <Component {...pageProps} />
+      </div>
+    </AuthProvider>
   );
 }
 

@@ -2,7 +2,7 @@ function HoursCard({ date, isBooked, handleOpenModal }) {
   return (
     <div
       onClick={() => handleOpenModal(date, isBooked)}
-      className={`w-52 h-20 ${
+      className={`w-44 md:w-52 h-20 ${
         isBooked
           ? 'bg-red-400 cursor-not-allowed'
           : 'bg-green-400 cursor-pointer'
