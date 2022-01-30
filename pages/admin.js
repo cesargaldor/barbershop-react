@@ -1,10 +1,13 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import AppointmentCard from '../components/AppointmentCard/AppointmentCard';
+import { AppointmentContext } from '../context/AppointmentContext';
 import { AuthContext } from '../context/AuthContext';
 
 export default function Admin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { loginUser, user, logoutUser } = useContext(AuthContext);
+  const { latestAppointments } = useContext(AppointmentContext);
 
   const handleLogin = async () => {
     if (email !== '' && password !== '') {
@@ -41,13 +44,27 @@ export default function Admin() {
         )}
 
         {user && (
-          <div>
+          <div className='w-full flex flex-col items-center'>
             <button
               onClick={() => logoutUser()}
-              className='p-2 bg-red-400 text-white rounded-lg mt-3'
+              className='p-2 w-36 bg-red-400 text-white rounded-lg mt-3'
             >
               Cerrar sesión
             </button>
+
+            {latestAppointments?.length === 0 ? (
+              <div>
+                <h1>No hay citas hoy</h1>
+              </div>
+            ) : (
+              <div className='w-full flex flex-col items-center'>
+                {latestAppointments?.map((la) => {
+                  return (
+                    <AppointmentCard appointment={la} isAdminView={true} />
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
       </div>

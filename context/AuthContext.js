@@ -1,9 +1,11 @@
 import { createContext, useState } from 'react';
 import { supabase } from '../utils/supabase';
+import { useRouter } from 'next/router';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const router = useRouter();
   const [user, setUser] = useState(supabase.auth.user());
 
   const loginUser = async (email, password) => {
@@ -26,6 +28,7 @@ export const AuthProvider = ({ children }) => {
   const logoutUser = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    router.push('/');
   };
 
   const contextData = {
