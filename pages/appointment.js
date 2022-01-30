@@ -43,7 +43,7 @@ export default function Appointment() {
           onKeyUp={(e) => (e.key === 'Enter' ? handleEnterCode() : '')}
           onChange={(e) => setCode(e.target.value)}
           type='text'
-          className='p-2 border-none w-50 outline-none bg-gray-100 rounded-lg'
+          className='p-2 border-none w-56 outline-none bg-gray-100 rounded-lg'
           placeholder='Introduza el código'
         />
 

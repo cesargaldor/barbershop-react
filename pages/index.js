@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import isBefore from 'date-fns/isBefore';
 import HoursCard from '../components/HoursCard';
 import Modal from '../components/Modal';
 import { getAppointments } from '../utils/utils';
@@ -98,7 +99,7 @@ export default function Home() {
         </h1>
         <input
           defaultValue={date.toISOString().substring(0, 10)}
-          className='p-2 border-none w-52 outline-none bg-gray-100 rounded-lg'
+          className='p-2 border-none w-56 outline-none bg-gray-100 rounded-lg'
           type='date'
           onChange={(e) => {
             if (e.target.value !== '') {
@@ -107,7 +108,7 @@ export default function Home() {
           }}
         />
 
-        {isOpeningDay ? (
+        {isOpeningDay && !isBefore(new Date(date), new Date()) ? (
           <div className='mt-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 pb-6'>
             {renderHours.map((d, i) => {
               return (
@@ -122,7 +123,7 @@ export default function Home() {
           </div>
         ) : (
           <div className='mt-4'>
-            <h2 className='text-xl'>Estamos cerrados.</h2>
+            <h2 className='text-xl'>No hay citas para hoy.</h2>
           </div>
         )}
 
