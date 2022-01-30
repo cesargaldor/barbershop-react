@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import AppointmentCard from '../components/AppointmentCard';
 import { supabase } from '../utils/supabase';
+import Head from 'next/head';
 
 export default function Appointment() {
   const [code, setCode] = useState('');
@@ -34,29 +35,34 @@ export default function Appointment() {
   };
 
   return (
-    <div className='w-full'>
-      <div className='flex flex-col items-center '>
-        <h1 className='text-2xl font-bold mb-4 text-center'>
-          Puede comprobar sus citas y cancelarlas
-        </h1>
-        <input
-          onKeyUp={(e) => (e.key === 'Enter' ? handleEnterCode() : '')}
-          onChange={(e) => setCode(e.target.value)}
-          type='text'
-          className='p-2 border-none w-56 outline-none bg-gray-100 rounded-lg'
-          placeholder='Introduza el código'
-        />
-
-        {appointment && (
-          <AppointmentCard
-            appointment={appointment}
-            handleCancelAppointment={handleCancelAppointment}
+    <>
+      <Head>
+        <title>Barbershop</title>
+      </Head>
+      <div className='w-full'>
+        <div className='flex flex-col items-center '>
+          <h1 className='text-2xl font-bold mb-4 text-center'>
+            Puede comprobar sus citas y cancelarlas
+          </h1>
+          <input
+            onKeyUp={(e) => (e.key === 'Enter' ? handleEnterCode() : '')}
+            onChange={(e) => setCode(e.target.value)}
+            type='text'
+            className='p-2 border-none w-56 outline-none bg-gray-100 rounded-lg'
+            placeholder='Introduza el código'
           />
-        )}
-        {error && !appointment && (
-          <h1 className='text-red-500 text-2xl md:text-3xl mt-6'>{error}</h1>
-        )}
+
+          {appointment && (
+            <AppointmentCard
+              appointment={appointment}
+              handleCancelAppointment={handleCancelAppointment}
+            />
+          )}
+          {error && !appointment && (
+            <h1 className='text-red-500 text-2xl md:text-3xl mt-6'>{error}</h1>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

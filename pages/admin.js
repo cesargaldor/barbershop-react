@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useContext, useState, useEffect } from 'react';
 import AppointmentCard from '../components/AppointmentCard/AppointmentCard';
 import { AppointmentContext } from '../context/AppointmentContext';
@@ -16,58 +17,67 @@ export default function Admin() {
   };
 
   return (
-    <div className='w-full'>
-      <div className='flex flex-col items-center'>
-        {!user && (
-          <>
-            <h1 className='text-2xl font-bold mb-4'>Bienvenido de nuevo</h1>
-            <input
-              type='text'
-              onChange={(e) => setEmail(e.target.value)}
-              className='p-2 w-56 border-none outline-none bg-gray-100 rounded-lg mb-1'
-              placeholder='Introduza el email'
-            />
-            <input
-              type='password'
-              onChange={(e) => setPassword(e.target.value)}
-              className='p-2 w-56 border-none outline-none bg-gray-100 rounded-lg mt-1'
-              placeholder='Introduza la contraseña'
-            />
+    <>
+      <Head>
+        <title>Barbershop</title>
+      </Head>
+      <div className='w-full'>
+        <div className='flex flex-col items-center'>
+          {!user && (
+            <>
+              <h1 className='text-2xl font-bold mb-4'>Bienvenido de nuevo</h1>
+              <input
+                type='text'
+                onChange={(e) => setEmail(e.target.value)}
+                className='p-2 w-56 border-none outline-none bg-gray-100 rounded-lg mb-1'
+                placeholder='Introduza el email'
+              />
+              <input
+                type='password'
+                onChange={(e) => setPassword(e.target.value)}
+                className='p-2 w-56 border-none outline-none bg-gray-100 rounded-lg mt-1'
+                placeholder='Introduza la contraseña'
+              />
 
-            <button
-              onClick={() => handleLogin()}
-              className='p-2 w-56 bg-blue-400 text-white rounded-lg mt-3'
-            >
-              Iniciar sesión
-            </button>
-          </>
-        )}
+              <button
+                onClick={() => handleLogin()}
+                className='p-2 w-56 bg-blue-400 text-white rounded-lg mt-3'
+              >
+                Iniciar sesión
+              </button>
+            </>
+          )}
 
-        {user && (
-          <div className='w-full flex flex-col items-center'>
-            <button
-              onClick={() => logoutUser()}
-              className='p-2 w-36 bg-red-400 text-white rounded-lg mt-3'
-            >
-              Cerrar sesión
-            </button>
+          {user && (
+            <div className='w-full flex flex-col items-center'>
+              <button
+                onClick={() => logoutUser()}
+                className='p-2 w-36 bg-red-400 text-white rounded-lg mt-3'
+              >
+                Cerrar sesión
+              </button>
 
-            {latestAppointments?.length === 0 ? (
-              <div>
-                <h1>No hay citas hoy</h1>
-              </div>
-            ) : (
-              <div className='w-full flex flex-col items-center'>
-                {latestAppointments?.map((la) => {
-                  return (
-                    <AppointmentCard appointment={la} isAdminView={true} />
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
+              {latestAppointments?.length === 0 ? (
+                <div>
+                  <h1>No hay citas hoy</h1>
+                </div>
+              ) : (
+                <div className='w-full flex flex-col items-center'>
+                  {latestAppointments?.map((la, i) => {
+                    return (
+                      <AppointmentCard
+                        key={i}
+                        appointment={la}
+                        isAdminView={true}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
